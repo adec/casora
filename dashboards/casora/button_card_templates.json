@@ -7623,6 +7623,33 @@
        }
       },
       {
+       "type": "custom:button-card",
+       "template": "casora_badge_energy_rate",
+       "entity": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_entity || undefined; ]]]",
+       "variables": {
+        "enabled": "[[[ const _rv = variables.casora_rv || {}; return !!_rv.energy_rate_entity && (window.casoraSeen ? window.casoraSeen(_rv,'rates',user,_rv.show_rates) : _rv.show_rates) !== false; ]]]",
+        "octopus_entity": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_octopus_entity; ]]]",
+        "today_rates": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_today_rates; ]]]",
+        "tomorrow_rates": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_tomorrow_rates; ]]]",
+        "standing_charge_entity": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_standing_charge_entity; ]]]",
+        "fallback_entity": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_fallback_entity; ]]]",
+        "lowlimit": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_lowlimit; ]]]",
+        "mediumlimit": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_mediumlimit; ]]]",
+        "highlimit": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_highlimit; ]]]",
+        "cheapest": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_cheapest; ]]]",
+        "tariff_name": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_tariff_name; ]]]",
+        "rate_unit": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_rate_unit; ]]]",
+        "color_cheap": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_color_cheap; ]]]",
+        "color_low": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_color_low; ]]]",
+        "color_medium": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_color_medium; ]]]",
+        "color_high": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_color_high; ]]]",
+        "color_negative": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_color_negative; ]]]",
+        "color_cheapest": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_color_cheapest; ]]]",
+        "color_cheapestblue": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_color_cheapestblue; ]]]",
+        "room_name": "[[[ const _rv = variables.casora_rv || {}; return _rv.energy_rate_room_name; ]]]"
+       }
+      },
+      {
        "entity": "[[[\n  const f = states['input_select.casora_mobile_filter']?.state;\n  return variables.room_chips?.[f]?.motion_entity || null;\n]]]\n",
        "extra_styles": "[[[\n  /* Ohne Bewegungsmelder auch den Platz in der Chip-Reihe räumen – sonst steht ein leeres\n     Grid-Element da und der Abstand davor wird doppelt so groß (04.10.2026). */\n  const f = states['input_select.casora_mobile_filter']?.state;\n  const hide = !variables.room_chips?.[f]?.motion_entity;\n  return ':host{order:99;}\\n' + (hide ? ':host{display:none !important;}\\n' : '') + `#img-cell, .img-cell{ position: relative; }\n\n#img-cell #icon, .img-cell #icon{\n  color: transparent !important;\n  opacity: 0 !important;\n}\n\n#img-cell::before,\n.img-cell::before{\n  content: '';\n  position: absolute;\n  inset: 0;\n  background-color: var(--casora-badge-icon-fg, var(--primary-text-color)) !important;\n\n  -webkit-mask: url('data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3C%21--Generator%3A%20Apple%20Native%20CoreSVG%20341--%3E%0A%3C%21DOCTYPE%20svg%0APUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%0A%20%20%20%20%20%20%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%2028.9805%2027.2461%22%3E%0A%20%3Cg%3E%0A%20%20%3Crect%20height%3D%2227.2461%22%20opacity%3D%220%22%20width%3D%2228.9805%22%20x%3D%220%22%20y%3D%220%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M4.92188%204.76953L11.6836%204.76953C12.0938%204.76953%2012.4219%204.42969%2012.4219%204.00781C12.4219%203.58594%2012.0938%203.23438%2011.6836%203.23438L4.92188%203.23438C4.5%203.23438%204.18359%203.58594%204.18359%204.00781C4.18359%204.42969%204.5%204.76953%204.92188%204.76953ZM0.726562%2010.6406L8.75391%2010.6406C9.17578%2010.6406%209.49219%2010.3008%209.49219%209.87891C9.49219%209.45703%209.17578%209.10547%208.75391%209.10547L0.726562%209.10547C0.316406%209.10547%200%209.46875%200%209.87891C0%2010.2891%200.316406%2010.6406%200.726562%2010.6406ZM4.23047%2016.5117L8.69531%2016.5117C9.10547%2016.5117%209.42188%2016.1719%209.42188%2015.75C9.42188%2015.3281%209.10547%2014.9766%208.69531%2014.9766L4.23047%2014.9766C3.80859%2014.9766%203.49219%2015.3281%203.49219%2015.75C3.49219%2016.1719%203.80859%2016.5117%204.23047%2016.5117ZM1.14844%2022.3125L7.26562%2022.3125C7.67578%2022.3125%207.99219%2021.9727%207.99219%2021.5508C7.99219%2021.1289%207.67578%2020.7773%207.26562%2020.7773L1.14844%2020.7773C0.738281%2020.7773%200.421875%2021.1289%200.421875%2021.5508C0.421875%2021.9727%200.738281%2022.3125%201.14844%2022.3125Z%22%20fill%3D%22white%22%20fill-opacity%3D%220.425%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M14.1211%2026.332L17.8125%2021.9375C18.1758%2021.5156%2018.2227%2021.3984%2018.3633%2020.9531L18.668%2020.0508L16.6875%2017.5664L16.0664%2020.4141L12.4102%2024.7383C11.2383%2026.1211%2013.1484%2027.4805%2014.1211%2026.332ZM23.1211%2025.9688C23.8711%2027.5156%2026.1445%2026.5664%2025.3242%2024.9023L22.8164%2019.8164C22.6289%2019.4297%2022.3477%2019.0195%2022.125%2018.6914L20.5195%2016.418L20.6367%2016.0898C21.082%2014.8242%2021.2227%2014.0508%2021.3164%2012.7852L21.5625%209.23438C21.6797%207.54688%2020.6836%206.25781%2018.9609%206.25781C17.6602%206.25781%2016.7812%206.91406%2015.5859%208.08594L13.7109%209.9375C13.0898%2010.5469%2012.8906%2011.0391%2012.832%2011.8359L12.6094%2014.7422C12.5508%2015.4688%2012.9609%2015.9961%2013.6406%2016.0195C14.3203%2016.0664%2014.7305%2015.668%2014.8008%2014.8828L15.082%2011.6953L15.9844%2010.875C16.3125%2010.582%2016.7461%2010.7812%2016.7109%2011.1094L16.5117%2013.8164C16.4062%2015.1758%2016.7227%2015.8203%2017.6719%2016.9922L20.1562%2020.1211C20.4023%2020.4375%2020.4375%2020.5664%2020.543%2020.7539ZM27.3984%2011.0742L24.5508%2011.0742L22.6992%209.01172L22.5117%2012L23.2617%2012.75C23.6719%2013.1602%2024.0234%2013.2773%2024.75%2013.2773L27.3984%2013.2773C28.1367%2013.2773%2028.6289%2012.8555%2028.6289%2012.1641C28.6289%2011.5078%2028.125%2011.0742%2027.3984%2011.0742ZM20.332%205.15625C21.7617%205.15625%2022.9102%204.00781%2022.9102%202.57812C22.9102%201.14844%2021.7617%200%2020.332%200C18.9023%200%2017.7539%201.14844%2017.7539%202.57812C17.7539%204.00781%2018.9023%205.15625%2020.332%205.15625Z%22%20fill%3D%22white%22%20fill-opacity%3D%220.85%22%2F%3E%0A%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A') no-repeat center / auto 70%;\n  mask: url('data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3C%21--Generator%3A%20Apple%20Native%20CoreSVG%20341--%3E%0A%3C%21DOCTYPE%20svg%0APUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%0A%20%20%20%20%20%20%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%2028.9805%2027.2461%22%3E%0A%20%3Cg%3E%0A%20%20%3Crect%20height%3D%2227.2461%22%20opacity%3D%220%22%20width%3D%2228.9805%22%20x%3D%220%22%20y%3D%220%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M4.92188%204.76953L11.6836%204.76953C12.0938%204.76953%2012.4219%204.42969%2012.4219%204.00781C12.4219%203.58594%2012.0938%203.23438%2011.6836%203.23438L4.92188%203.23438C4.5%203.23438%204.18359%203.58594%204.18359%204.00781C4.18359%204.42969%204.5%204.76953%204.92188%204.76953ZM0.726562%2010.6406L8.75391%2010.6406C9.17578%2010.6406%209.49219%2010.3008%209.49219%209.87891C9.49219%209.45703%209.17578%209.10547%208.75391%209.10547L0.726562%209.10547C0.316406%209.10547%200%209.46875%200%209.87891C0%2010.2891%200.316406%2010.6406%200.726562%2010.6406ZM4.23047%2016.5117L8.69531%2016.5117C9.10547%2016.5117%209.42188%2016.1719%209.42188%2015.75C9.42188%2015.3281%209.10547%2014.9766%208.69531%2014.9766L4.23047%2014.9766C3.80859%2014.9766%203.49219%2015.3281%203.49219%2015.75C3.49219%2016.1719%203.80859%2016.5117%204.23047%2016.5117ZM1.14844%2022.3125L7.26562%2022.3125C7.67578%2022.3125%207.99219%2021.9727%207.99219%2021.5508C7.99219%2021.1289%207.67578%2020.7773%207.26562%2020.7773L1.14844%2020.7773C0.738281%2020.7773%200.421875%2021.1289%200.421875%2021.5508C0.421875%2021.9727%200.738281%2022.3125%201.14844%2022.3125Z%22%20fill%3D%22white%22%20fill-opacity%3D%220.425%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M14.1211%2026.332L17.8125%2021.9375C18.1758%2021.5156%2018.2227%2021.3984%2018.3633%2020.9531L18.668%2020.0508L16.6875%2017.5664L16.0664%2020.4141L12.4102%2024.7383C11.2383%2026.1211%2013.1484%2027.4805%2014.1211%2026.332ZM23.1211%2025.9688C23.8711%2027.5156%2026.1445%2026.5664%2025.3242%2024.9023L22.8164%2019.8164C22.6289%2019.4297%2022.3477%2019.0195%2022.125%2018.6914L20.5195%2016.418L20.6367%2016.0898C21.082%2014.8242%2021.2227%2014.0508%2021.3164%2012.7852L21.5625%209.23438C21.6797%207.54688%2020.6836%206.25781%2018.9609%206.25781C17.6602%206.25781%2016.7812%206.91406%2015.5859%208.08594L13.7109%209.9375C13.0898%2010.5469%2012.8906%2011.0391%2012.832%2011.8359L12.6094%2014.7422C12.5508%2015.4688%2012.9609%2015.9961%2013.6406%2016.0195C14.3203%2016.0664%2014.7305%2015.668%2014.8008%2014.8828L15.082%2011.6953L15.9844%2010.875C16.3125%2010.582%2016.7461%2010.7812%2016.7109%2011.1094L16.5117%2013.8164C16.4062%2015.1758%2016.7227%2015.8203%2017.6719%2016.9922L20.1562%2020.1211C20.4023%2020.4375%2020.4375%2020.5664%2020.543%2020.7539ZM27.3984%2011.0742L24.5508%2011.0742L22.6992%209.01172L22.5117%2012L23.2617%2012.75C23.6719%2013.1602%2024.0234%2013.2773%2024.75%2013.2773L27.3984%2013.2773C28.1367%2013.2773%2028.6289%2012.8555%2028.6289%2012.1641C28.6289%2011.5078%2028.125%2011.0742%2027.3984%2011.0742ZM20.332%205.15625C21.7617%205.15625%2022.9102%204.00781%2022.9102%202.57812C22.9102%201.14844%2021.7617%200%2020.332%200C18.9023%200%2017.7539%201.14844%2017.7539%202.57812C17.7539%204.00781%2018.9023%205.15625%2020.332%205.15625Z%22%20fill%3D%22white%22%20fill-opacity%3D%220.85%22%2F%3E%0A%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A') no-repeat center / auto 70%;\n\n  transform: translateZ(0);\n}\n`;\n]]]\n",
        "icon": "mdi:motion-sensor",
@@ -8813,25 +8840,28 @@
       "height": "auto"
      },
      {
-      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     },
+     {
+      "--casora-badge-order-rates": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
      }
     ],
     "security_row": [
@@ -8940,25 +8970,28 @@
       "height": "auto"
      },
      {
-      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     },
+     {
+      "--casora-badge-order-rates": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
      }
     ],
     "room_sub_security": [
@@ -9017,25 +9050,28 @@
       "height": "auto"
      },
      {
-      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     },
+     {
+      "--casora-badge-order-rates": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
      }
     ],
     "room_sub_lights": [
@@ -9094,25 +9130,28 @@
       "height": "auto"
      },
      {
-      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     },
+     {
+      "--casora-badge-order-rates": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
      }
     ],
     "room_sub_presence": [
@@ -9171,25 +9210,28 @@
       "height": "auto"
      },
      {
-      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     },
+     {
+      "--casora-badge-order-rates": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
      }
     ],
     "room_sub_energy": [
@@ -9248,25 +9290,28 @@
       "height": "auto"
      },
      {
-      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     },
+     {
+      "--casora-badge-order-rates": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
      }
     ],
     "room_sub_media": [
@@ -9325,25 +9370,28 @@
       "height": "auto"
      },
      {
-      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+      "--casora-badge-order-security": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+      "--casora-badge-order-climate": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+      "--casora-badge-order-lights": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+      "--casora-badge-order-people": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+      "--casora-badge-order-media": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+      "--casora-badge-order-energy": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
      },
      {
-      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+      "--casora-badge-order-scenes": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     },
+     {
+      "--casora-badge-order-rates": "[[[ const _rv = variables.casora_rv || {}; \n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(_rv.badge_order) ? _rv.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
      }
     ]
    },
@@ -13239,6 +13287,33 @@
        }
       },
       {
+       "type": "custom:button-card",
+       "template": "casora_badge_energy_rate",
+       "entity": "[[[ return variables.energy_rate_entity || undefined; ]]]",
+       "variables": {
+        "enabled": "[[[ return !!variables.energy_rate_entity && (window.casoraSeen ? window.casoraSeen(variables,'rates',user,variables.show_rates) : variables.show_rates) !== false; ]]]",
+        "octopus_entity": "[[[ return variables.energy_rate_octopus_entity; ]]]",
+        "today_rates": "[[[ return variables.energy_rate_today_rates; ]]]",
+        "tomorrow_rates": "[[[ return variables.energy_rate_tomorrow_rates; ]]]",
+        "standing_charge_entity": "[[[ return variables.energy_rate_standing_charge_entity; ]]]",
+        "fallback_entity": "[[[ return variables.energy_rate_fallback_entity; ]]]",
+        "lowlimit": "[[[ return variables.energy_rate_lowlimit; ]]]",
+        "mediumlimit": "[[[ return variables.energy_rate_mediumlimit; ]]]",
+        "highlimit": "[[[ return variables.energy_rate_highlimit; ]]]",
+        "cheapest": "[[[ return variables.energy_rate_cheapest; ]]]",
+        "tariff_name": "[[[ return variables.energy_rate_tariff_name; ]]]",
+        "rate_unit": "[[[ return variables.energy_rate_rate_unit; ]]]",
+        "color_cheap": "[[[ return variables.energy_rate_color_cheap; ]]]",
+        "color_low": "[[[ return variables.energy_rate_color_low; ]]]",
+        "color_medium": "[[[ return variables.energy_rate_color_medium; ]]]",
+        "color_high": "[[[ return variables.energy_rate_color_high; ]]]",
+        "color_negative": "[[[ return variables.energy_rate_color_negative; ]]]",
+        "color_cheapest": "[[[ return variables.energy_rate_color_cheapest; ]]]",
+        "color_cheapestblue": "[[[ return variables.energy_rate_color_cheapestblue; ]]]",
+        "room_name": "[[[ return variables.energy_rate_room_name; ]]]"
+       }
+      },
+      {
        "template": "casora_badge_scene_group",
        "type": "custom:button-card",
        "variables": {
@@ -14278,25 +14353,28 @@
      "--casora-name-literal": "[[[\n  /* Raumname nach casoraRoomName (04.10.2026): übersetzt nur, was Casora angelegt hat und\n     unverändert ist (variables.casora_auto_name); „Home“ ohne Markierung steht, wie gespeichert. */\n  const lit = window.casoraRoomName\n    ? window.casoraRoomName(this._config && this._config.name, variables).literal\n    : variables.name_literal === true;\n  const n = this.shadowRoot && this.shadowRoot.getElementById('name');\n  if (n) {\n    if (lit) {\n      n.setAttribute('data-no-i18n', '');\n      const want = String(this._config && this._config.name || '');\n      /* Nur den Textknoten ändern – textContent löscht Lits Marker (Fehler „nextSibling“). */\n      const tn = want && !want.startsWith('[[[') && n.textContent !== want\n        && Array.from(n.childNodes).find((c) => c.nodeType === 3 && c.data.trim());\n      if (tn) tn.data = want;\n    } else n.removeAttribute('data-no-i18n');\n  }\n  return lit ? '1' : '0';\n]]]"
     },
     {
-     "--casora-badge-order-security": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
+     "--casora-badge-order-security": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('security') + 1;\n]]]\n"
     },
     {
-     "--casora-badge-order-climate": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
+     "--casora-badge-order-climate": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('climate') + 1;\n]]]\n"
     },
     {
-     "--casora-badge-order-lights": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
+     "--casora-badge-order-lights": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('lights') + 1;\n]]]\n"
     },
     {
-     "--casora-badge-order-people": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
+     "--casora-badge-order-people": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('people') + 1;\n]]]\n"
     },
     {
-     "--casora-badge-order-media": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
+     "--casora-badge-order-media": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('media') + 1;\n]]]\n"
     },
     {
-     "--casora-badge-order-energy": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
+     "--casora-badge-order-energy": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('energy') + 1;\n]]]\n"
     },
     {
-     "--casora-badge-order-scenes": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+     "--casora-badge-order-scenes": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('scenes') + 1;\n]]]\n"
+    },
+    {
+     "--casora-badge-order-rates": "[[[\n  // Standard wie das Studio (BADGE_ORDER_IDS): gespeicherte Reihenfolge zuerst, was fehlt, danach.\n  const D = ['security', 'climate', 'lights', 'people', 'energy', 'rates', 'scenes', 'media'];\n  const o = (Array.isArray(variables.badge_order) ? variables.badge_order : []).filter((x) => D.includes(x));\n  D.forEach((x) => { if (!o.includes(x)) o.push(x); });\n  return o.indexOf('rates') + 1;\n]]]\n"
     }
    ],
    "custom_fields": {
@@ -15507,7 +15585,8 @@
    "energy_popup_focus_4": null,
    "energy_popup_focus_5": null,
    "energy_popup_focus_6": null,
-   "hold_mode": null
+   "hold_mode": null,
+   "energy_rate_entity": null
   }
  },
  "casora_scene_core": {
@@ -18261,5 +18340,63 @@
     "dismiss_on_background": true
    }
   }
+ },
+ "casora_popup_energy_rate": {
+  "template": [
+   "casora_popup_base"
+  ],
+  "tap_action": {
+   "haptic": "light",
+   "casora_popup": {
+    "title": "[[[ return window.casoraPopupTitle ? window.casoraPopupTitle(this, variables, 'Agile Stromtarif', ['Strompreis']) : 'Agile Stromtarif'; ]]]",
+    "content": "[[[ return window._casoraRate ? window._casoraRate.popup(states, hass, variables, entity?.entity_id) : {type:'vertical-stack',cards:[]}; ]]]",
+    "style": "--popup-min-width: min(900px, 92vw); --popup-max-width: min(920px, 92vw);",
+    "head_switch": false,
+    "dismiss_on_background": true,
+    "extra": "[[[ return window.casoraPopupExtras ? window.casoraPopupExtras(this) : null; ]]]"
+   }
+  }
+ },
+ "casora_badge_energy_rate": {
+  "template": [
+   "casora_badge_base",
+   "casora_popup_energy_rate"
+  ],
+  "icon": "mdi:currency-gbp",
+  "show_name": true,
+  "show_icon": true,
+  "show_state": false,
+  "show_label": false,
+  "name": "[[[ return window._casoraRate ? window._casoraRate.badge(states,hass,variables,entity?.entity_id,this) : '—'; ]]]",
+  "triggers_update": "[[[ return window._casoraRate?.resolve(states,hass,variables,entity?.entity_id).watch || []; ]]]",
+  "hold_action": {
+   "action": "more-info",
+   "haptic": "medium"
+  },
+  "double_tap_action": {
+   "action": "none"
+  },
+  "icon_tap_action": {
+   "action": "none"
+  },
+  "variables": {
+   "lowlimit": 5,
+   "mediumlimit": 20,
+   "highlimit": 30,
+   "cheapest": true
+  },
+  "styles": {
+   "card": [
+    {
+     "--casora-badge-icon-color": "[[[ const P = window._casoraRate; const s = P?.resolve(states,hass,variables,entity?.entity_id); return P ? P.band(s.price,variables,s.minimum).hue : 'var(--secondary-text-color)'; ]]]"
+    }
+   ],
+   "icon": [
+    {
+     "color": "var(--casora-badge-glyph, #fff)"
+    }
+   ]
+  },
+  "extra_styles": ":host{order:var(--casora-badge-order-rates, 6);}"
  }
 }

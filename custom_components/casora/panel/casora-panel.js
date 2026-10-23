@@ -505,7 +505,7 @@ const PHONE_FILTERS = ["climate", "lights", "people", "media", "security", "ener
 // vorn, Szenen (nur Home, als Badge) hinten. Gespeicherte Listen gehen vor, was darin fehlt,
 // folgt in dieser Reihenfolge – ältere Listen ohne „scenes“ behalten Szenen also am Ende.
 // Wie im Hemma-Original: Medien zuletzt (erscheint nur bei Wiedergabe und verschiebt so nichts).
-const BADGE_ORDER_IDS = ["security", "climate", "lights", "people", "energy", "scenes", "media"];
+const BADGE_ORDER_IDS = ["security", "climate", "lights", "people", "energy", "rates", "scenes", "media"];
 
 const BADGE_SWITCH_KEYS = ["climate", "lights", "people", "media", "security", "energy"].map((id) => "show_" + id);
 
@@ -2437,6 +2437,194 @@ const SECTIONS = [
         { id: "camera", label: "Camera", domains: ["camera"] },
       ]),
     ],
+  },
+  {
+    "label": "Rates",
+    "bid": "rates",
+    "icon": "energy",
+    "toggle": "show_rates",
+    "iconColor": "var(--casora-badge-energy-color)",
+    "group": "badges",
+    "fields": [
+      {
+        "key": "energy_rate_entity",
+        "label": "Current electricity rate",
+        "domains": [
+          "sensor"
+        ],
+        "hint": "Choose the Octopus import current-rate sensor. This badge has its own visibility and tariff popup.",
+        "always": true
+      },
+      {
+        "key": "energy_rate_octopus_entity",
+        "label": "Octopus current rate",
+        "domains": [
+          "sensor"
+        ],
+        "hint": "Use the Octopus electricity import current rate to match forecasts to this meter.",
+        "advanced": true
+      },
+      {
+        "key": "energy_rate_today_rates",
+        "label": "Today rates",
+        "domains": [
+          "event",
+          "sensor"
+        ],
+        "advanced": false,
+        "always": true
+      },
+      {
+        "key": "energy_rate_tomorrow_rates",
+        "label": "Tomorrow rates",
+        "domains": [
+          "event",
+          "sensor"
+        ],
+        "advanced": false,
+        "always": true
+      },
+      {
+        "key": "energy_rate_standing_charge_entity",
+        "label": "Standing charge",
+        "domains": [
+          "sensor"
+        ],
+        "advanced": true
+      },
+      {
+        "key": "energy_rate_fallback_entity",
+        "label": "Fallback current rate",
+        "domains": [
+          "sensor"
+        ],
+        "advanced": true
+      },
+      {
+        "key": "energy_rate_rate_unit",
+        "label": "Rate unit",
+        "type": "select",
+        "options": [
+          "",
+          "GBP/kWh",
+          "p/kWh"
+        ],
+        "optionLabels": {
+          "": "Automatic",
+          "GBP/kWh": "GBP/kWh",
+          "p/kWh": "p/kWh"
+        },
+        "advanced": true
+      },
+      {
+        "key": "energy_rate_tariff_name",
+        "label": "Tariff name",
+        "type": "text",
+        "advanced": true
+      },
+      {
+        "key": "energy_rate_lowlimit",
+        "label": "Low limit (p/kWh)",
+        "type": "number",
+        "placeholder": "5",
+        "advanced": false,
+        "always": true
+      },
+      {
+        "key": "energy_rate_mediumlimit",
+        "label": "Medium limit (p/kWh)",
+        "type": "number",
+        "placeholder": "20",
+        "advanced": false,
+        "always": true
+      },
+      {
+        "key": "energy_rate_highlimit",
+        "label": "High limit (p/kWh)",
+        "type": "number",
+        "placeholder": "30",
+        "advanced": false,
+        "always": true
+      },
+      {
+        "key": "energy_rate_cheapest",
+        "label": "Highlight cheapest rate",
+        "type": "bool",
+        "boolDefault": true,
+        "advanced": true
+      },
+      {
+        "key": "energy_rate_color_cheap",
+        "label": "Cheap colour",
+        "type": "text",
+        "placeholder": "MediumSeaGreen",
+        "advanced": true,
+        "always": true,
+        "hint": "CSS colour name or hex colour."
+      },
+      {
+        "key": "energy_rate_color_low",
+        "label": "Low band colour",
+        "type": "text",
+        "placeholder": "ForestGreen",
+        "advanced": true,
+        "always": true,
+        "hint": "CSS colour name or hex colour."
+      },
+      {
+        "key": "energy_rate_color_medium",
+        "label": "Medium band colour",
+        "type": "text",
+        "placeholder": "orange",
+        "advanced": true,
+        "always": true,
+        "hint": "CSS colour name or hex colour."
+      },
+      {
+        "key": "energy_rate_color_high",
+        "label": "High band colour",
+        "type": "text",
+        "placeholder": "Tomato",
+        "advanced": true,
+        "always": true,
+        "hint": "CSS colour name or hex colour."
+      },
+      {
+        "key": "energy_rate_color_negative",
+        "label": "Zero / negative colour",
+        "type": "text",
+        "placeholder": "rgb(57,28,217)",
+        "advanced": true,
+        "always": true,
+        "hint": "CSS colour name or hex colour."
+      },
+      {
+        "key": "energy_rate_color_cheapest",
+        "label": "Cheapest colour",
+        "type": "text",
+        "placeholder": "LightGreen",
+        "advanced": true,
+        "always": true,
+        "hint": "CSS colour name or hex colour."
+      },
+      {
+        "key": "energy_rate_color_cheapestblue",
+        "label": "Cheapest zero / negative colour",
+        "type": "text",
+        "placeholder": "LightBlue",
+        "advanced": true,
+        "always": true,
+        "hint": "CSS colour name or hex colour."
+      },
+      {
+        "key": "energy_rate_room_name",
+        "label": "Popup title",
+        "type": "text",
+        "advanced": true,
+        "always": true,
+        "placeholder": "Agile electricity tariff"
+      }
+    ]
   },
   {
     label: "Energy", bid: "energy", icon: "energy", toggle: "show_energy",
@@ -18487,7 +18675,7 @@ class CasoraPanel extends HTMLElement {
     let model = [];
     try { model = this._miniModel(room) || []; } catch (e) { model = []; }
     const shown = new Set(model.map((b) => String(b.id).split(":")[0]));
-    const BADGE_POPUP = { climate: "Climate", lights: "Lights", security: "Security", energy: "Energy" };
+    const BADGE_POPUP = { climate: "Climate", lights: "Lights", security: "Security", energy: "Energy", rates: "Rates" };
     SECTIONS.filter((sec) => sec.group === "badges" && BADGE_POPUP[sec.bid] && shown.has(sec.bid)).forEach((sec) => {
       items.push({ name: BADGE_POPUP[sec.bid], via: "Badge", icon: sec.icon, color: sec.iconColor,
         go: () => {
@@ -22789,6 +22977,19 @@ class CasoraPanel extends HTMLElement {
           };
         }),
       });
+    }
+
+    // Independent Community rate badge; consumption stays with the stock Energy model above.
+    if (!forPhone && on("show_rates") && V.energy_rate_entity) {
+      if (!window._casoraRate && !this._rateReady && this._casoraCardsReady) {
+        this._rateReady = import("/casora_scripts/local/28-energy-rate.js?v=" + Date.now()).then(() => this._syncPreview()).catch(() => {});
+      }
+      const P = window._casoraRate;
+      const rv = Object.fromEntries(Object.entries(V).filter(([k]) => k.startsWith("energy_rate_")).map(([k, value]) => [k.slice(12), value]));
+      const rate = P ? P.resolve(this._hass.states, this._hass, rv, V.energy_rate_entity) : null;
+      const band = P && P.band(rate.price, rv, rate.minimum);
+      out.push({ id: "rates", label: P ? P.format(rate.price, this._hass) : "Rates", icon: "energy",
+        color: band ? band.hue : ENERGY, text: band ? (window.casoraTr ? window.casoraTr(band.text) : band.text) : "—", raw: !!P, subs: [] });
     }
 
     const players = list("media_player_", 10).concat(list("psn_", 2));

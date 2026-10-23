@@ -14,6 +14,7 @@
     security: ["casora_badge_security", "casora_badge_lock_group", "casora_badge_contact_group",
       "casora_badge_camera_group", "casora_badge_security_group"],
     energy: ["casora_badge_energy_group", "casora_badge_energy"],
+    rates: ["casora_badge_energy_rate"],
   };
   const ACTIONS = ["tap_action", "icon_tap_action", "hold_action", "double_tap_action"];
   const XSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/></svg>';

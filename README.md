@@ -34,6 +34,8 @@ And a new look: **Casora Glas** <sub>26.10.31</sub>, frosted glass over your roo
 
 Missing a card for one of your devices? Request it in the Studio under **Community**. It may become a card for everyone.
 
+**Agile electricity rates:** The optional [Rates badge](docs/energy-rate.md) uses the [Octopus Energy integration](https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy) and requires [Octopus Energy Rates Card](https://github.com/lozzd/octopus-energy-rates-card) (`custom:octopus-energy-rates-card`) installed through HACS and loaded as a dashboard resource for its tariff popup.
+
 Every change, release by release, in the [changelog](CHANGELOG.md).
 
 <br/>
