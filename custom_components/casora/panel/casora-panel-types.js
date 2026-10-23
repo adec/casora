@@ -324,6 +324,24 @@ window.CASORA_TILE_TYPES = [
       { key: "live_tile", label: "Live on the tile", type: "bool", boolDefault: false, advanced: true, tileLevel: true,
         hint: "Plays the muted live stream on the tile instead of the still image – only while the tile is visible and the page is open, so it uses more data only then. Without a stream (or if it fails) the tile keeps the still image." },
     ] },
+  // Protect cameras and doorbells share one card; registry metadata finds the package camera and controls.
+  { id: "casora_unifi_protect", label: "UniFi Protect camera", template: "casora_unifi_protect", domains: ["camera"],
+    icon: "camera", entityLabel: "Protect camera",
+    onlyIf: (hass) => !!Object.values(hass?.entities || {}).some((e) => e?.platform === "unifiprotect"),
+    community: { desc: "Live video with sound, a package-camera switcher, doorbell rings, detections and recorded event clips. Works with UniFi Protect cameras and the G4 Doorbell Pro.",
+      needs: "unifiprotect", needsText: "For UniFi Protect cameras and doorbells", needsMissing: "UniFi Protect integration not installed yet",
+      preview: "/casora_assets/community/casora_unifi_protect.svg" },
+    fields: [ICON, TITLE_NAME,
+      { key: "event_view", label: "Event view", type: "select", group: "Popup", options: ["list", "gallery"],
+        optionLabels: { "list": "List", "gallery": "Gallery" },
+        hint: "Choose the initial event view. The popup can switch between a list and a thumbnail gallery, which loads more previews as you scroll." },
+      { key: "live_tile", label: "Live on the tile", type: "bool", boolDefault: false, tileLevel: true,
+        hint: "Plays the muted live stream on the tile instead of the still image – only while the tile is visible and the page is open, so it uses more data only then. Without a stream (or if it fails) the tile keeps the still image." },
+      { key: "camera2", label: "Second camera", domains: ["camera"], group: "Popup", placeholder: "Automatic",
+        hint: "Uses the package camera on this device automatically. Optionally choose another camera instead." },
+      { key: "refresh_s", label: "Refresh image", type: "select", advanced: true, tileLevel: true,
+        options: ["5", "", "30", "60"], optionLabels: { "5": "Every 5 seconds", "": "Every 10 seconds", "30": "Every 30 seconds", "60": "Every 60 seconds" } },
+    ] },
   // Reolink doorbell (community card, from card request #23): camera tile for the live camera of a Reolink
   // doorbell (device with the "visitor" doorbell button), plus rings, detections, quick replies, siren and
   // settings on the same device (scripts/local/24-klingel.js). "Talk" is experimental and off by default.

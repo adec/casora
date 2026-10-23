@@ -629,7 +629,9 @@
         // 24-klingel.js liveCam; vorher stand die Klingel zweimal in der Liste).
         const bell = !suggested && !frig && id.startsWith("camera.") && typeIds.has("casora_reolink_doorbell") && bellCam(h, id)
           ? "casora_reolink_doorbell" : null;
-        const type = typeFor(id, typeIds, frig || bell || suggested);
+        const protect = !suggested && id.startsWith("camera.") && e?.platform === "unifiprotect"
+          && typeIds.has("casora_unifi_protect") && Number(fa.channel_id) !== 3 ? "casora_unifi_protect" : null;
+        const type = typeFor(id, typeIds, protect || frig || bell || suggested);
         if (!type) return;
         seen.add(id);
         const aid = areaOf(id);

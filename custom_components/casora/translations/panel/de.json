@@ -2506,7 +2506,17 @@
     "All calendars": "Alle Kalender",
     "1 calendar": "1 Kalender",
     "{n} calendars": "{n} Kalender",
-    "No events": "Keine Termine"
+    "No events": "Keine Termine",
+    "UniFi Protect camera": "UniFi Protect Kamera",
+    "Protect camera": "Protect-Kamera",
+    "Live video with sound, a package-camera switcher, doorbell rings, detections and recorded event clips. Works with UniFi Protect cameras and the G4 Doorbell Pro.": "Live-Bild mit Ton, Umschalter zur Paketkamera, Klingeldrücke, Erkennungen und Ereignisclips. Für UniFi Protect Kameras und die G4 Doorbell Pro.",
+    "For UniFi Protect cameras and doorbells": "Für UniFi Protect Kameras und Türklingeln",
+    "UniFi Protect integration not installed yet": "UniFi Protect Integration noch nicht installiert",
+    "Uses the package camera on this device automatically. Optionally choose another camera instead.": "Verwendet automatisch die Paketkamera an diesem Gerät. Optional eine andere Kamera auswählen.",
+    "Event view": "Ereignisansicht",
+    "Gallery": "Galerie",
+    "List": "Liste",
+    "Choose the initial event view. The popup can switch between a list and a thumbnail gallery, which loads more previews as you scroll.": "Wähle die anfängliche Ereignisansicht. Im Popup kannst du zwischen einer Liste und einer Galerie wechseln, die beim Scrollen weitere Vorschaubilder lädt."
   },
   "patterns": [
     [

@@ -18228,5 +18228,38 @@
   "variables": {
    "room_name": null
   }
+ },
+ "casora_unifi_protect": {
+  "template": [
+   "casora_camera",
+   "casora_popup_unifi_protect"
+  ],
+  "variables": {
+   "icon": "camera",
+   "casora_default_name": "UniFi Protect",
+   "live_tile": false
+  },
+  "hold_action": {
+   "action": "none"
+  },
+  "icon_tap_action": {
+   "action": "none"
+  },
+  "state_display": "[[[\n window._casoraProtect?.tileWatch(this, entity, hass, variables);\n const text = window._casoraProtect ? window._casoraProtect.tile(entity, hass, states, this) : (entity?.state === 'unavailable' ? 'Offline' : 'Bereit');\n return window.casoraStateFit?.(text) ?? text;\n]]]"
+ },
+ "casora_popup_unifi_protect": {
+  "template": [
+   "casora_popup_base"
+  ],
+  "tap_action": {
+   "haptic": "light",
+   "casora_popup": {
+    "title": "[[[ return window.casoraPopupTitle ? window.casoraPopupTitle(this, variables, 'UniFi Protect', ['Kamera', 'Camera']) : 'UniFi Protect'; ]]]",
+    "content": "[[[ return window._casoraProtect ? window._casoraProtect.popup(entity, states, hass, variables) : {type:'vertical-stack', cards:[]}; ]]]",
+    "style": "[[[ return window._casoraProtect?.popupStyle() || '--popup-min-width:min(1360px,94vw);--popup-max-width:min(1360px,94vw);'; ]]]",
+    "extra": "[[[ return window.casoraPopupExtras ? window.casoraPopupExtras(this) : null; ]]]",
+    "dismiss_on_background": true
+   }
+  }
  }
 }
